@@ -1,5 +1,7 @@
 package com.demo.ems_backend.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,8 +46,14 @@ public class EmployeeController {
      public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable("id") Long employeeId){
       EmployeeDto employeeDto =  employeeService.getEmployeeById(employeeId);
       return  ResponseEntity.ok(employeeDto);
+     }
 
-
+     @GetMapping("getAllEmployee")
+     //Build getAllEmployee Rest API
+     public ResponseEntity<List<EmployeeDto>> getAllEmployee(){
+       List<EmployeeDto> employees  =employeeService.getAllEmployees();
+       return ResponseEntity.ok(employees);
+        
      }
     
     

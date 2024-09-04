@@ -1,5 +1,9 @@
 package com.demo.ems_backend.service.impl;
 
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import com.demo.ems_backend.dto.EmployeeDto;
@@ -16,8 +20,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService{
    private EmployeeRepository employeeRepository;
-
-
     @Override
     public EmployeeDto createEmployee(EmployeeDto employeeDto) {
         Employee employee=EmployeeMapper.mapToEmployee(employeeDto);
@@ -31,5 +33,14 @@ public class EmployeeServiceImpl implements EmployeeService{
      Employee savedEmployee=   employeeRepository.findById(employeeId).orElseThrow(()->new ResourceNotFoundException("Employee not Found with the given id "+employeeId) );
      return EmployeeMapper.mapToEmployeeDto(savedEmployee);
 
+    }
+
+
+    @Override
+    public List<EmployeeDto> getAllEmployees() {
+       List<Employee> employees= employeeRepository.findAll();
+       return employees.stream().map((employee)->EmployeeMapper.mapToEmployeeDto(employee)).collect(Collectors.toList());
+   
+        
     }
 }
