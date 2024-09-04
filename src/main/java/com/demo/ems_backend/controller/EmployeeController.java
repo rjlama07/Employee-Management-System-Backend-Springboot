@@ -7,20 +7,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.ems_backend.dto.EmployeeDto;
 import com.demo.ems_backend.service.EmployeeService;
+import lombok.AllArgsConstructor;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeController {
     private EmployeeService employeeService;
 
     //Build App Employee REST API
-    @PostMapping("createEmoployee")
+    @PostMapping()
     public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeDto employeeDto){
-      EmployeeDto savedEmployee=  employeeService.createEmployee(employeeDto);
+      try{
+        System.out.println("EmployeeController.createEmployee(2)"+employeeDto);
+        EmployeeDto savedEmployee=  employeeService.createEmployee(employeeDto);
+        System.out.println("EmployeeController.createEmployee(222)"+employeeDto);
         return new ResponseEntity<>(savedEmployee,HttpStatus.CREATED);
+      }
+        catch(Exception e){
+            System.err.println(e);
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+      
     }
     
 }

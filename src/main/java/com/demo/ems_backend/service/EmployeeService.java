@@ -4,7 +4,4 @@ import com.demo.ems_backend.dto.EmployeeDto;
 
 public interface EmployeeService {
   EmployeeDto createEmployee(EmployeeDto employeeDto);
-  
-    
-
 }
