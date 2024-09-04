@@ -1,0 +1,4 @@
+controllerLayer<=>ServiceLayer<=> RepositoryLayer<=> Database Layer
+
+
+contoller layer depends upon service layer and service layer depends uopn RepositoryLayer
